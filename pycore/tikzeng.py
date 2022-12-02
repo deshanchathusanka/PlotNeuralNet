@@ -13,6 +13,8 @@ def to_head( projectpath ):
 
 def to_cor():
     return r"""
+
+\def\OneConvColor{rgb:yellow,1;red,5;white,4}
 \def\ConvColor{rgb:yellow,5;red,2.5;white,5}
 \def\ConvReluColor{rgb:yellow,5;red,5;white,5}
 \def\PoolColor{rgb:red,1;black,0.3}
@@ -41,7 +43,9 @@ def to_input( pathfile, to='(-3,0,0)', width=8, height=8, name="temp" ):
 """
 
 # Conv
-def to_Conv( name, s_filer=256, n_filer=64, offset="(0,0,0)", to="(0,0,0)", width=1, height=40, depth=40, caption=" " ):
+def to_Conv( name, s_filer=256, n_filer=64, offset="(0,0,0)", to="(0,0,0)", width=1, height=40, depth=40, caption=" ", color = "" ):
+    if not color:
+        color = "\ConvColor"
     return r"""
 \pic[shift={"""+ offset +"""}] at """+ to +""" 
     {Box={
@@ -49,7 +53,7 @@ def to_Conv( name, s_filer=256, n_filer=64, offset="(0,0,0)", to="(0,0,0)", widt
         caption="""+ caption +r""",
         xlabel={{"""+ str(n_filer) +""", }},
         zlabel="""+ str(s_filer) +""",
-        fill=\ConvColor,
+        fill=""" + color + """,
         height="""+ str(height) +""",
         width="""+ str(width) +""",
         depth="""+ str(depth) +"""
